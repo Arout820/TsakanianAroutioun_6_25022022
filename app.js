@@ -1,5 +1,6 @@
 // importation de express
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const path = require('path');
 
@@ -18,6 +19,8 @@ mongoose
 // crée une application express
 const app = express();
 console.log('Connecté au serveur');
+
+app.use(helmet());
 
 // permet de débloquer le faite que le front et le back proviennent de sources différentes
 app.use((req, res, next) => {
