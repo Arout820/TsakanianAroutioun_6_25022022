@@ -20,6 +20,7 @@ Dépendances :
   npm i --save bcrypt
   npm i --save jsonwebtoken
   npm i --save multer
+  npm i --save helmet
 ```
 
 Dépendances Dév:
@@ -38,6 +39,7 @@ Résumé :
 - bcrypt
 - jsonwebtoken
 - multer
+- helmet
 
 # Variable d'environnement
 
@@ -49,8 +51,7 @@ Dans ce fichier crée les variables et on modifie les <> à modifier par les inf
 
 ```
 PORT = <Le port utilisé 3000 la plupart du temps>
-DB_USERNAME = <Le nom d'utilisateur de la base de donnée>
-DB_PASSWORD = <Le mot de passe associé à l'utilisateur>
+DB_DATABASE = <Lien avec la base de données>
 TOKEN = <Clé de chiffrement à créer permettant d'encrypter>
 ```
 
@@ -58,14 +59,14 @@ TOKEN = <Clé de chiffrement à créer permettant d'encrypter>
 
 Fonctionneront lorsque le serveur sera lancé avec node server ou nodemon server
 
-Pour s'inscrire :
+Pour s'inscrire (route POST):
 http://localhost:3000/api/auth/signup
 
-Pour se connecter :
+Pour se connecter (route POST):
 http://localhost:3000/api/auth/login
 
-Pour retrouver les sauces :
+Pour retrouver les sauces (route GET):
 http://localhost:3000/api/sauces
 
-Pour retrouver une sauce en particulier :
+Pour retrouver une sauce en particulier, le modifier ou le supprimer (routes GET, PUT et DELETE) :
 http://localhost:3000/api/sauces:id
