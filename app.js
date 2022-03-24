@@ -1,18 +1,19 @@
-// importation de express
+// importations des dépendances
 const express = require('express');
-const helmet = require('helmet');
 const mongoose = require('mongoose');
 const path = require('path');
+const helmet = require('helmet');
 
+// importations des routes
 const userRoutes = require('./routes/user.routes');
 const sauceRoutes = require('./routes/sauce.routes');
 
+// permettre l'utilisation de variables d'environnement
 require('dotenv').config();
 
+// connection à la base de données mongoose
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.wcy5k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-  )
+  .connect(process.env.DB_DATABASE)
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
@@ -20,9 +21,7 @@ mongoose
 const app = express();
 console.log('Connecté au serveur');
 
-app.use(helmet());
-
-// permet de débloquer le faite que le front et le back proviennent de sources différentes
+// permet de débloquer le fait que le front et le back proviennent de sources différentes
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -33,12 +32,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// pour respecter plus de normes de sécurité
+app.use(helmet());
+
 // permet d'analyser le corps de la requête en le transformant en json
 app.use(express.json());
 
+// multer
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/api/sauces', sauceRoutes);
+// routes
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceRoutes);
 
 module.exports = app;

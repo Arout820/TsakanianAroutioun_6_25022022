@@ -2,21 +2,21 @@ const Sauce = require('../models/Sauce');
 const fs = require('fs');
 
 // ----------------------- Renvoie tableau de sauces ----------------------- //
-exports.getAllSauces = (req, res, next) => {
+exports.getAllSauces = (req, res) => {
   Sauce.find()
     .then((sauces) => res.status(200).json(sauces))
     .catch((error) => res.status(400).json({ error: 'Aucune sauce disponible' }));
 };
 
 // --------------------------- Renvoie une sauce --------------------------- //
-exports.getOneSauce = (req, res, next) => {
+exports.getOneSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => res.status(200).json(sauce))
     .catch((error) => res.status(400).json({ error: "Cette sauce n'existe pas" }));
 };
 
 // ---------------- Ajoute une sauce dans un tableau de sauces ---------------- //
-exports.createSauce = (req, res, next) => {
+exports.createSauce = (req, res) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   const sauce = new Sauce({
@@ -32,7 +32,7 @@ exports.createSauce = (req, res, next) => {
 };
 
 // -------------------------- Modifie une sauce -------------------------- //
-exports.modifySauce = (req, res, next) => {
+exports.modifySauce = (req, res) => {
   const sauceObject = req.file
     ? {
         ...JSON.parse(req.body.sauce),
@@ -53,7 +53,7 @@ exports.modifySauce = (req, res, next) => {
 };
 
 // --------------------------- Supprime une sauce --------------------------- //
-exports.deleteSauce = (req, res, next) => {
+exports.deleteSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
       const filename = sauce.imageUrl.split('/images/')[1];
@@ -67,7 +67,7 @@ exports.deleteSauce = (req, res, next) => {
 };
 
 // ----------------------- LikeDislike d'une sauce ----------------------- //
-exports.reputationSauce = (req, res, next) => {
+exports.reputationSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
       switch (req.body.like) {
