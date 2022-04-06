@@ -7,3 +7,4 @@ router.post('/signup', passwordValidator, userController.signup);
 router.post('/login', userController.login);
 
 module.exports = router;
+

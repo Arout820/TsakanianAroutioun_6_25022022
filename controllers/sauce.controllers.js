@@ -1,5 +1,8 @@
 const Sauce = require('../models/Sauce');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
+
+require('dotenv').config();
 
 // ----------------------- Renvoie tableau de sauces ----------------------- //
 exports.getAllSauces = (req, res) => {
@@ -12,7 +15,7 @@ exports.getAllSauces = (req, res) => {
 exports.getOneSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => res.status(200).json(sauce))
-    .catch((error) => res.status(400).json({ error: "Cette sauce n'existe pas" }));
+    .catch((error) => res.status(400).json({ error: "Cette sauce n'existe pas !" }));
 };
 
 // ---------------- Ajoute une sauce dans un tableau de sauces ---------------- //
@@ -27,7 +30,7 @@ exports.createSauce = (req, res) => {
   console.log(sauce);
   sauce
     .save()
-    .then(() => res.status(201).json({ message: 'Sauce enregistré' }))
+    .then(() => res.status(201).json({ message: 'Sauce enregistré !' }))
     .catch((error) => res.status(400).json({ error }));
 };
 
@@ -42,12 +45,20 @@ exports.modifySauce = (req, res) => {
 
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
-      const filename = sauce.imageUrl.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
-        Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Objet modifié !' }))
-          .catch((error) => res.status(400).json({ error }));
-      });
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = jwt.verify(token, process.env.TOKEN);
+      const userId = decodedToken.userId;
+
+      if (sauce.userId === userId) {
+        const filename = sauce.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+          Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+            .then(() => res.status(200).json({ message: 'Objet modifié !' }))
+            .catch((error) => res.status(400).json({ error }));
+        });
+      } else {
+        throw 'Désolé mais vous ne pouvez pas modifier les sauces des autres !';
+      }
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -56,12 +67,19 @@ exports.modifySauce = (req, res) => {
 exports.deleteSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
-      const filename = sauce.imageUrl.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
-        Sauce.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Objet supprimée' }))
-          .catch((error) => res.status(400).json({ error }));
-      });
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = jwt.verify(token, process.env.TOKEN);
+      const userId = decodedToken.userId;
+      if (sauce.userId === userId) {
+        const filename = sauce.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+          Sauce.deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: 'Objet supprimée !' }))
+            .catch((error) => res.status(400).json({ error }));
+        });
+      } else {
+        throw 'Désolé mais vous ne pouvez pas supprimer les sauces des autres !';
+      }
     })
     .catch((error) => res.status(500).json({ error }));
 };
