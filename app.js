@@ -13,7 +13,7 @@ require('dotenv').config();
 
 // connection à la base de données mongoose
 mongoose
-  .connect(process.env.DB_DATABASE)
+  .connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.wcy5k.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`)
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
