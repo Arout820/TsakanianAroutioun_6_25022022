@@ -45,14 +45,17 @@ Résumé :
 
 Dans mon projet j'ai utilsé les variables d'environnements.
 
-Il faudra créer un fichier .env et le mettre dans .gitignore
-
-Dans ce fichier crée les variables et on modifie les <> à modifier par les informations demandés
+Dans le fichier .env.example on supprime le .example et on remplace les contenus des variables 
+entre les '' avec nos propres variables.
 
 ```
-PORT = <Le port utilisé 3000 la plupart du temps>
-DB_DATABASE = <Lien avec la base de données>
-TOKEN = <Clé de chiffrement à créer permettant d'encrypter>
+PORT = 'Le port utilisé 3000 la plupart du temps'
+
+DB_USERNAME = 'Utilisateur sur MangoDB'
+DB_PASSWORD = 'Password associé à l'utilisateur'
+DB_NAME = 'Nom de la base de donnée'
+
+TOKEN = 'Clé de chiffrement à créer permettant d'encrypter'
 ```
 
 # Routes
