@@ -145,6 +145,8 @@ exports.reputationSauce = (req, res) => {
               .then(() => res.status(201).json({ message: 'Dislike -1' }))
               .catch((error) => res.status(400).json({ error }));
           }
+          break;
+
         default:
           break;
       }
