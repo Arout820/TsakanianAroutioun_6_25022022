@@ -45,11 +45,7 @@ exports.modifySauce = (req, res) => {
 
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
-      const token = req.headers.authorization.split(' ')[1];
-      const decodedToken = jwt.verify(token, process.env.TOKEN);
-      const userId = decodedToken.userId;
-
-      if (sauce.userId !== userId) {
+      if (sauce.userId !== req.token.userId) {
         return res.status(401).json({ error: 'Modification interdite accès refusé !' });
       }
       const filename = sauce.imageUrl.split('/images/')[1];
@@ -66,11 +62,7 @@ exports.modifySauce = (req, res) => {
 exports.deleteSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
-      const token = req.headers.authorization.split(' ')[1];
-      const decodedToken = jwt.verify(token, process.env.TOKEN);
-      const userId = decodedToken.userId;
-
-      if (sauce.userId !== userId) {
+      if (sauce.userId !== req.token.userId) {
         return res.status(401).json({ error: 'Vous ne pouvez pas supprimer les sauces des autres accès refusé !' });
       }
       const filename = sauce.imageUrl.split('/images/')[1];
