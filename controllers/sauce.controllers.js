@@ -8,14 +8,14 @@ require('dotenv').config();
 exports.getAllSauces = (_req, res) => {
   Sauce.find()
     .then((sauces) => res.status(200).json(sauces))
-    .catch((_error) => res.status(400).json({ error: 'Aucune sauce disponible' }));
+    .catch(() => res.status(400).json({ error: 'Aucune sauce disponible' }));
 };
 
 // --------------------------- Renvoie une sauce --------------------------- //
 exports.getOneSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => res.status(200).json(sauce))
-    .catch((_error) => res.status(400).json({ error: "Cette sauce n'existe pas !" }));
+    .catch(() => res.status(400).json({ error: "Cette sauce n'existe pas !" }));
 };
 
 // ---------------- Ajoute une sauce dans un tableau de sauces ---------------- //
@@ -50,7 +50,7 @@ exports.modifySauce = (req, res) => {
       const userId = decodedToken.userId;
 
       if (sauce.userId !== userId) {
-        return res.status(401).json({ error: 'Désolé mais vous ne pouvez pas modifier les sauces des autres !' });
+        return res.status(401).json({ error: 'Modification interdite accès refusé !' });
       }
       const filename = sauce.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {
@@ -71,7 +71,7 @@ exports.deleteSauce = (req, res) => {
       const userId = decodedToken.userId;
 
       if (sauce.userId !== userId) {
-        return res.status(401).json({ error: 'Désolé mais vous ne pouvez pas supprimer les sauces des autres !' });
+        return res.status(401).json({ error: 'Vous ne pouvez pas supprimer les sauces des autres accès refusé !' });
       }
       const filename = sauce.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {
