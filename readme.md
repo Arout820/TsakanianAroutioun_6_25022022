@@ -1,35 +1,29 @@
-# Backend
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arout820_TsakanianAroutioun_6_25022022&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arout820_TsakanianAroutioun_6_25022022)
+# Piquante - Construire une API sécurisée pour une application d'avis gastronomiques
 
 Ici j'explique comment lancer le projet, les dépendances, et l'utilisation de l'api.
 
 Pour relier le front et le back :
-Il faudra avoir la partie front clonable sur https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6
-A ne pas oublier de respecter les prérequis inscrit dans le fichier readme de la partie front.
+Il faudra avoir la partie front à cloner dans [le dépôt Github](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6).
+
+À ne pas oublier de respecter les prérequis inscrits dans le fichier readme de la partie front.
 
 ## Installation
 
-Installation de package avec npm install ou npm i
-
-Dépendances :
+Pour installer le backend il faudra cloner mon dépôt github:
 
 ```bash
-  npm i express
-  npm i --save mongoose
-  npm i --save mongoose-unique-validator
-  npm i --save dotenv
-  npm i --save bcrypt
-  npm i --save jsonwebtoken
-  npm i --save multer
-  npm i --save helmet
+  git clone git@github.com:Arout820/TsakanianAroutioun_6_25022022.git
 ```
 
-Dépendances Dév:
+Pour lancer le serveur il faut faire : 
 
 ```bash
-  npm i --save-dev nodemon
+  npm start
 ```
 
-Résumé :
+
+ ## Les dépendances utilisées pour le projet
 
 - express
 - mongoose
@@ -60,7 +54,8 @@ TOKEN = 'Clé de chiffrement à créer permettant d'encrypter'
 
 # Routes
 
-Fonctionneront lorsque le serveur sera lancé avec node server ou nodemon server
+Fonctionneront lorsque le serveur sera lancé avec node server ou nodemon server, ou avec npm start 
+si préalablement vous avez mis un script dans le fichier package.json
 
 Pour s'inscrire (route POST):
 http://localhost:3000/api/auth/signup
@@ -73,3 +68,17 @@ http://localhost:3000/api/sauces
 
 Pour retrouver une sauce en particulier, le modifier ou le supprimer (routes GET, PUT et DELETE) :
 http://localhost:3000/api/sauces:id
+
+## 🛠 Skills
+Je suis un développeur **Full Stack spécialisé React**.
+
+J'utilise l'outil de versioning Git et GitHub, je mets en place les bonnes pratiques pour 
+le référencement naturel, pour les normes d'accessibilité ainsi que pour le respect des performances.
+
+**Front** : React, Vanilla Javascript, HTML, CSS, Sass, Autoformation Next.js💪
+
+**Back** : Node.js avec Express, MongoDB, mySQL 
+
+
+##  Mon profil Linkedin
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aroutiountsakanian/)
