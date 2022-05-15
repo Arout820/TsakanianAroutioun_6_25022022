@@ -2,13 +2,13 @@ const http = require('http');
 const app = require('./app');
 
 const normalizePort = (val) => {
-  const port = parseInt(val, 10);
+  const portNormalize = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (isNaN(portNormalize)) {
     return val;
   }
-  if (port >= 0) {
-    return port;
+  if (portNormalize >= 0) {
+    return portNormalize;
   }
   return false;
 };
